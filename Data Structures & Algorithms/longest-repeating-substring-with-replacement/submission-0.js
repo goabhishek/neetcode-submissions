@@ -1,0 +1,31 @@
+class Solution {
+    /**
+     * @param {string} s
+     * @param {number} k
+     * @return {number}
+     */
+    characterReplacement(s, k) {
+          let left = 0;
+    let maxFreq = 0;
+    let ans = 0;
+
+    const count = new Array(26).fill(0);
+
+    for (let right = 0; right < s.length; right++) {
+
+        const index = s.charCodeAt(right) - 65;
+        count[index]++;
+
+        maxFreq = Math.max(maxFreq, count[index]);
+
+        while ((right - left + 1) - maxFreq > k) {
+            count[s.charCodeAt(left) - 65]--;
+            left++;
+        }
+
+        ans = Math.max(ans, right - left + 1);
+    }
+
+    return ans;
+    }
+}
